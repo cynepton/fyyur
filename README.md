@@ -59,6 +59,10 @@ Our tech stack will include:
   ```bash
   pip3 install Flask-Migrate
   ```
+- [ ] Psycopg2
+  ```bash
+  pip3 install psycopg2
+  ```
 
 ### Main Files: Project Structure
 
