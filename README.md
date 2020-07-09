@@ -1,12 +1,13 @@
-# Fyyur
+Fyyur
+-----
 
 ### Introduction
 
 Fyyur is a musical venue and artist booking site that facilitates the discovery and bookings of shows between local performing artists and venues. This site lets you list new artists and venues, discover them, and list shows with artists as a venue owner.
 
-<!-- Your job is to build out the data models to power the API endpoints for the Fyyur site by connecting to a PostgreSQL database for storing, querying, and creating information about artists and venues on Fyyur. -->
+Your job is to build out the data models to power the API endpoints for the Fyyur site by connecting to a PostgreSQL database for storing, querying, and creating information about artists and venues on Fyyur.
 
-<!-- ### Overview
+### Overview
 
 This app is nearly complete. It is only missing one thing… real data! While the views and controllers are defined in this application, it is missing models and model interactions to be able to store retrieve, and update data from a database. By the end of this project, you should have a fully functioning site that is at least capable of doing the following, if not more, using a PostgreSQL database:
 
@@ -14,7 +15,7 @@ This app is nearly complete. It is only missing one thing… real data! While th
 * searching for venues and artists.
 * learning more about a specific artist or venue.
 
-We want Fyyur to be the next new platform that artists and musical venues can use to find each other, and discover new music shows. Let's make that happen! -->
+We want Fyyur to be the next new platform that artists and musical venues can use to find each other, and discover new music shows. Let's make that happen!
 
 ### Tech Stack
 
@@ -25,40 +26,6 @@ Our tech stack will include:
 * **Python3** and **Flask** as our server language and server framework
 * **Flask-Migrate** for creating and running schema migrations
 * **HTML**, **CSS**, and **Javascript** with [Bootstrap 3](https://getbootstrap.com/docs/3.4/customize/) for our website's frontend
-
-### Project Requirements
-
-- [ ] [Python 3.7](https://www.python.org/downloads/) or later
-- [ ] pip3. Pip usually comes pre installed with python 3.4 or later, run
-  ```bash
-  pip --version
-  ``` 
-  or
-  ```bash
-  pip3 --version
-  ```
-  to confirm. Incase you receive a command not found message, see the [official pip installation](https://pip.pypa.io/en/stable/installing/) page.
-- [ ] [Postgres SQL](https://www.postgresql.org/download/)
-  - For MacOS, Postgres is already downloaded. [Homebrew](https://brew.sh/) is a popular route for installing Postgres. See this gist on [installing Postgres via Brew](https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3).
-  - On Linux, you can run `apt-get install postgresql`
-  You should know that you successfully installed Postgres if you can run the following in your terminal, and see a path outputted:
-    ```bash
-    $ which postgres
-    /usr/local/bin/postgres
-    ```
-- [ ] [Flask](https://flask.palletsprojects.com/en/1.1.x/). To install Flask, run:
-  ```bash
-  pip3 install flask
-  ```
-  Note: If `pip3` doesn't work, try `pip`
-- [ ] [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/). To Install Flask SQLAlchemy, run:
-  ```bash
-  pip3 install flask-sqlalchemy
-  ```
-- [ ] [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
-  ```bash
-  pip3 install Flask-Migrate
-  ```
 
 ### Main Files: Project Structure
 
@@ -155,25 +122,19 @@ First, [install Flask](http://flask.pocoo.org/docs/1.0/installation/#install-fla
 To start and run the local development server,
 
 1. Initialize and activate a virtualenv:
-  ```bash
+  ```
   $ cd YOUR_PROJECT_DIRECTORY_PATH/
   $ virtualenv --no-site-packages env
   $ source env/bin/activate
   ```
-  For Windows
-  ```bash
-  $ cd YOUR_PROJECT_DIRECTORY_PATH/
-  $ virtualenv env
-  $ source env/Scripts/activate
-  ```
 
 2. Install the dependencies:
-  ```bash
+  ```
   $ pip install -r requirements.txt
   ```
 
 3. Run the development server:
-  ```bash
+  ```
   $ export FLASK_APP=myapp
   $ export FLASK_ENV=development # enables debug mode
   $ python3 app.py
