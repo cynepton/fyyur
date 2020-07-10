@@ -110,7 +110,7 @@ def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
 
-  all_venues = Venue.query.all()
+  all_venues = Venue.query.group_by(Venue.state, Venue.city).all()
   data = []
 
   for venue in all_venues:
@@ -266,7 +266,7 @@ def create_venue_submission():
   )
   print(venue)
   # on successful db insert, flash success
-  # Done: on unsuccessful db insert, flash an error instead.
+  # TODO: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Venue ' + data.name + ' could not be listed.')
   # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
   try:
@@ -464,14 +464,35 @@ def create_artist_form():
 
 @app.route('/artists/create', methods=['POST'])
 def create_artist_submission():
-  # called upon submitting the new artist listing form
-  # TODO: insert form data as a new Venue record in the db, instead
-  # TODO: modify data to be the data object returned from db insertion
-
+  form = ArtistForm(request.form)
+  artist = Artist(
+    name = form.name.data,
+    genres = form.genres.data,
+    #address = form.address.data,
+    city = form.city.data,
+    state = form.state.data,
+    phone = form.phone.data,
+    #website = form.website.data,
+    facebook_link = form.facebook_link.data,
+    #seeking_talent = form.seeking_talent.data,
+    #seeking_description = form.seeking_description.data,
+    #image_link = form.image_link.data,
+  )
+  print(artist)
   # on successful db insert, flash success
-  flash('Artist ' + request.form['name'] + ' was successfully listed!')
   # TODO: on unsuccessful db insert, flash an error instead.
-  # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
+  # e.g., flash('An error occurred. Venue ' + data.name + ' could not be listed.')
+  # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
+  try:
+    db.session.add(artist)
+    db.session.commit()
+    # on successful db insert, flash success
+    flash('Artist ' + form.name.data + ' was successfully listed!')
+  except Exception as e:
+    print(e)
+    flash('An error occurred. Artist ' + form.name.data + ' could not be added.')
+  finally:
+    db.session.close()
   return render_template('pages/home.html')
 
 
