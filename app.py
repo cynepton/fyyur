@@ -110,9 +110,12 @@ def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
 
-  time_now = datetime.now().strftime('%Y-%m-%d %H:%S:%M')
-  all_venues
-  
+  all_venues = Venue.query.all()
+  data = []
+
+  for venue in all_venues:
+    pass
+
   data=[{
     "city": "San Francisco",
     "state": "CA",
@@ -247,12 +250,35 @@ def create_venue_form():
 def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
-
+  form = VenueForm(request.form)
+  venue = Venue(
+    name = form.name.data,
+    genres = form.genres.data,
+    address = form.address.data,
+    city = form.city.data,
+    state = form.state.data,
+    phone = form.phone.data,
+    #website = form.website.data,
+    facebook_link = form.facebook_link.data,
+    #seeking_talent = form.seeking_talent.data,
+    #seeking_description = form.seeking_description.data,
+    #image_link = form.image_link.data,
+  )
+  print(venue)
   # on successful db insert, flash success
-  flash('Venue ' + request.form['name'] + ' was successfully listed!')
-  # TODO: on unsuccessful db insert, flash an error instead.
+  # Done: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Venue ' + data.name + ' could not be listed.')
   # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
+  try:
+    db.session.add(venue)
+    db.session.commit()
+    # on successful db insert, flash success
+    flash('Venue ' + form.name.data + ' was successfully listed!')
+  except Exception as e:
+    print(e)
+    flash('An error occurred. Venue ' + form.name.data + ' could not be added.')
+  finally:
+    db.session.close()
   return render_template('pages/home.html')
 
 @app.route('/venues/<venue_id>', methods=['DELETE'])
