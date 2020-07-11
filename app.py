@@ -10,7 +10,7 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
-from flask_wtf import Form
+from flask_wtf import Form, FlaskForm
 from forms import *
 from flask_migrate import Migrate
 import psycopg2
@@ -156,21 +156,32 @@ def venues():
         }]
       })
       current_city = venue.city
-  return render_template('pages/venues.html', areas=data);
+  return render_template('pages/venues.html', areas=data)
 
 @app.route('/venues/search', methods=['POST'])
 def search_venues():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
-  # seach for Hop should return "The Musical Hop".
+  # search for Hop should return "The Musical Hop".
   # search for "Music" should return "The Musical Hop" and "Park Square Live Music & Coffee"
-  response={
-    "count": 1,
-    "data": [{
-      "id": 2,
-      "name": "The Dueling Pianos Bar",
+  #searchForm = searchForm()
+  venue_select = Venue.query
+  venue_list = []
+
+  #if searchForm.validate_on_submit():
+  venues = venue_select.filter(Venue.name.like('%' + request.form['search_term'] + '%'))
+
+  for venue in venues:
+    venue_list.append({
+      "id":venue.id,
+      "name":venue.name,
       "num_upcoming_shows": 0,
-    }]
+    })
+
+  response={
+    "count": len(venue_list),
+    "data": venue_list
   }
+
   return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/venues/<int:venue_id>')
