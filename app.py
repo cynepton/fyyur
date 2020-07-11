@@ -168,7 +168,7 @@ def search_venues():
   venue_list = []
 
   #if searchForm.validate_on_submit():
-  venues = venue_select.filter(Venue.name.like('%' + request.form['search_term'] + '%'))
+  venues = venue_select.filter(Venue.name.ilike('%' + request.form['search_term'] + '%'))
 
   for venue in venues:
     venue_list.append({
