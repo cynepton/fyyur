@@ -13,7 +13,7 @@ from logging import Formatter, FileHandler
 from flask_wtf import Form, FlaskForm
 from flask_migrate import Migrate
 import psycopg2
-
+from app import app, db, migrate
 #----------------------------------------------------------------------------#
 # Models.
 #----------------------------------------------------------------------------#
