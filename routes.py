@@ -26,29 +26,6 @@ def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
 
-  # data format
-  # data=[{
-  #   "city": "San Francisco",
-  #   "state": "CA",
-  #   "venues": [{
-  #     "id": 1,
-  #     "name": "The Musical Hop",
-  #     "num_upcoming_shows": 0,
-  #   }, {
-  #     "id": 3,
-  #     "name": "Park Square Live Music & Coffee",
-  #     "num_upcoming_shows": 1,
-  #   }]
-  # }, {
-  #   "city": "New York",
-  #   "state": "NY",
-  #   "venues": [{
-  #     "id": 2,
-  #     "name": "The Dueling Pianos Bar",
-  #     "num_upcoming_shows": 0,
-  #   }]
-  # }]
-  # Group the returned rows by city
   all_venues = Venue.query.group_by(Venue.id, Venue.city).all()
   data = []
   current_city = "null"
@@ -79,11 +56,9 @@ def search_venues():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # search for Hop should return "The Musical Hop".
   # search for "Music" should return "The Musical Hop" and "Park Square Live Music & Coffee"
-  #searchForm = searchForm()
   venue_select = Venue.query
   venue_list = []
 
-  #if searchForm.validate_on_submit():
   venues = venue_select.filter(Venue.name.ilike('%' + request.form['search_term'] + '%'))
 
   for venue in venues:
@@ -118,32 +93,7 @@ def show_venue(venue_id):
     "facebook_link": venue_in_view.facebook_link,
     "seeking_talent": venue_in_view.seeking_talent,
     "image_link": venue_in_view.image_link,
-  #   "past_shows": [{
-  #     "artist_id": 5,
-  #     "artist_name": "Matt Quevedo",
-  #     "artist_image_link": "https://images.unsplash.com/photo-1495223153807-b916f75de8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-  #     "start_time": "2019-06-15T23:00:00.000Z"
-  #   }],
-  #   "upcoming_shows": [{
-  #     "artist_id": 6,
-  #     "artist_name": "The Wild Sax Band",
-  #     "artist_image_link": "https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80",
-  #     "start_time": "2035-04-01T20:00:00.000Z"
-  #   }, {
-  #     "artist_id": 6,
-  #     "artist_name": "The Wild Sax Band",
-  #     "artist_image_link": "https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80",
-  #     "start_time": "2035-04-08T20:00:00.000Z"
-  #   }, {
-  #     "artist_id": 6,
-  #     "artist_name": "The Wild Sax Band",
-  #     "artist_image_link": "https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80",
-  #     "start_time": "2035-04-15T20:00:00.000Z"
-  #   }],
-  #   "past_shows_count": 1,
-  #   "upcoming_shows_count": 1,
-  }
-  #data = list(filter(lambda d: d['id'] == venue_id, [data1, data2, data3]))[0]
+  
   return render_template('pages/show_venue.html', venue=data)
 
 #  Create Venue
@@ -166,11 +116,7 @@ def create_venue_submission():
     city = form.city.data,
     state = form.state.data,
     phone = form.phone.data,
-    #website = form.website.data,
     facebook_link = form.facebook_link.data,
-    #seeking_talent = form.seeking_talent.data,
-    #seeking_description = form.seeking_description.data,
-    #image_link = form.image_link.data,
   )
   print(venue)
   # on successful db insert, flash success
@@ -261,25 +207,6 @@ def show_artist(artist_id):
     "seeking_venue": artist_in_view.seeking_venue,
     "image_link": artist_in_view.image_link,
     "facebook_link": artist_in_view.facebook_link
-    # "past_shows": [],
-    # "upcoming_shows": [{
-    #   "venue_id": 3,
-    #   "venue_name": "Park Square Live Music & Coffee",
-    #   "venue_image_link": "https://images.unsplash.com/photo-1485686531765-ba63b07845a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80",
-    #   "start_time": "2035-04-01T20:00:00.000Z"
-    # }, {
-    #   "venue_id": 3,
-    #   "venue_name": "Park Square Live Music & Coffee",
-    #   "venue_image_link": "https://images.unsplash.com/photo-1485686531765-ba63b07845a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80",
-    #   "start_time": "2035-04-08T20:00:00.000Z"
-    # }, {
-    #   "venue_id": 3,
-    #   "venue_name": "Park Square Live Music & Coffee",
-    #   "venue_image_link": "https://images.unsplash.com/photo-1485686531765-ba63b07845a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80",
-    #   "start_time": "2035-04-15T20:00:00.000Z"
-    # }],
-    # "past_shows_count": 0,
-    # "upcoming_shows_count": 3,
   }
   
   #data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
@@ -353,16 +280,10 @@ def create_artist_submission():
   artist = Artist(
     name = form.name.data,
     genres = form.genres.data,
-    #address = form.address.data,
     city = form.city.data,
     state = form.state.data,
     phone = form.phone.data,
-    #website = form.website.data,
     facebook_link = form.facebook_link.data,
-    #seeking_talent = form.seeking_talent.data,
-    #seeking_description = form.seeking_description.data,
-    #image_link = form.image_link.data,
-  )
   print(artist)
   # on successful db insert, flash success
   # TODO: on unsuccessful db insert, flash an error instead.
