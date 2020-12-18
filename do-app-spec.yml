@@ -1,0 +1,27 @@
+# https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
+name: fyyur
+region: nyc
+services:
+    -
+        envs:
+            -
+                key: FLASK_APP
+                scope: RUN_AND_BUILD_TIME
+                value: app
+                type: GENERAL
+            -
+                key: FLASK_ENV
+                scope: RUN_AND_BUILD_TIME
+                value: production
+                type: GENERAL
+        github:
+            branch: staging
+            repo: cynepton/fyyur
+            deploy_on_push: false
+        http_port: 5000
+        instance_count: 1
+        instance_size_slug: basic-xxs
+        name: fyyur
+        routes:
+            -
+                path: /
