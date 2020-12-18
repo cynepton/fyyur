@@ -10,5 +10,5 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = 'postgresql://doadmin:adxi23ks43tnh995@testcluster-do-user-8414461-0.b.db.ondigitalocean.com:25060/fsnd?sslmode=require'
+SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
 SQLALCHEMY_TRACK_MODIFICATIONS=False
