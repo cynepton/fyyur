@@ -14,7 +14,7 @@ from flask_wtf import Form, FlaskForm
 from forms import *
 from flask_migrate import Migrate
 import psycopg2
-from app import app
+from app import app, db
 from models import Venue, Artist, Shows
 
 #  ----------------------------------------------------------------
@@ -92,8 +92,9 @@ def show_venue(venue_id):
     "website": venue_in_view.website,
     "facebook_link": venue_in_view.facebook_link,
     "seeking_talent": venue_in_view.seeking_talent,
-    "image_link": venue_in_view.image_link,
-  
+    "image_link": venue_in_view.image_link
+  }
+
   return render_template('pages/show_venue.html', venue=data)
 
 #  Create Venue
@@ -283,7 +284,8 @@ def create_artist_submission():
     city = form.city.data,
     state = form.state.data,
     phone = form.phone.data,
-    facebook_link = form.facebook_link.data,
+    facebook_link = form.facebook_link.data
+  )
   print(artist)
   # on successful db insert, flash success
   # TODO: on unsuccessful db insert, flash an error instead.
