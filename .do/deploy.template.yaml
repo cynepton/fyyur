@@ -33,7 +33,7 @@ services:
             branch: staging
             repo: cynepton/fyyur
             deploy_on_push: false
-        run_command: gunicorn -w 4 -b :5000 app:app
+        run_command: gunicorn -w 4 -b :5000 app:app --worker-tmp-dir /dev/shm
         http_port: 5000
         instance_count: 1
         instance_size_slug: basic-xxs
