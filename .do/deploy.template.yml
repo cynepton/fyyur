@@ -1,6 +1,15 @@
 # https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
 name: fyyur
 region: nyc
+databases:
+    -
+        name: practice-cluster
+        engine: PG
+        cluster_name: practice-cluster
+        db_name: fyyur
+        db_user: doadmin
+        production: true
+        version: "12"
 services:
     -
         name: fyyur
@@ -18,7 +27,7 @@ services:
             -
                 key: DATABASE_URI
                 scope: RUN_AND_BUILD_TIME
-                value: ${ secrets.DATABASE_URI }
+                value: ${practice-cluster.DATABASE_URL}
                 type: GENERAL
         github:
             branch: staging
