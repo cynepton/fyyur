@@ -35,4 +35,4 @@ jobs:
 
             -
                 name: Create Digital Ocean App
-                run: doctl apps create --spec .do/deploy.template.yml
+                run: doctl apps create --spec .do/deploy.template.yaml
