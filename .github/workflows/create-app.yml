@@ -18,7 +18,7 @@ jobs:
 
     create-app:
         name: Create Digital Ocean App
-        needs: build
+        # needs: build
         runs-on: ubuntu-20.04
         steps:
             -
@@ -35,4 +35,4 @@ jobs:
 
             -
                 name: Create Digital Ocean App
-                run: doctl apps create --spec do-app-spec.yml
+                run: doctl apps create --spec .do/deploy.template.yaml

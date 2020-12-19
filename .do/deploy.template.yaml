@@ -1,6 +1,15 @@
 # https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
 name: fyyur
 region: nyc
+databases:
+    -
+        name: practice-cluster
+        engine: PG
+        cluster_name: practice-cluster
+        db_name: fyyur
+        db_user: doadmin
+        production: true
+        version: "12"
 services:
     -
         name: fyyur
@@ -17,14 +26,14 @@ services:
                 type: GENERAL
             -
                 key: DATABASE_URI
-                scope: RUN_AND_BUILD_TIME
-                value: ${ secrets.DATABASE_URI }
+                scope: RUN_TIME
+                value: ${practice-cluster.DATABASE_URL}
                 type: GENERAL
         github:
             branch: staging
             repo: cynepton/fyyur
             deploy_on_push: false
-        run_command: gunicorn app:app
+        run_command: gunicorn --worker-tmp-dir /dev/shm -w 4 -b :5000 app:app
         http_port: 5000
         instance_count: 1
         instance_size_slug: basic-xxs

@@ -20,12 +20,17 @@ import psycopg2
 # App Config.
 #----------------------------------------------------------------------------#
 
-app = Flask(__name__)
-moment = Moment(app)
-# TODO: connect to a local postgresql database
-app.config.from_object('config')
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+def create_app():
+    app = Flask(__name__)
 
+    # TODO: connect to a local postgresql database
+    app.config.from_object('config')
+    db.init_app(app)
+    return app
+
+app = create_app()
+moment = Moment(app)
 migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#
@@ -88,12 +93,12 @@ if not app.debug:
 #----------------------------------------------------------------------------#
 
 # Default port:
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
 
 # Or specify port manually:
-'''
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-'''
+
