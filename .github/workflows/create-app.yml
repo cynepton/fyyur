@@ -1,0 +1,38 @@
+# This should be run manually to create the Digital Ocean App
+# Should be run whenever a new release is being made that does not have 
+# backwards compatibility, and the older version is to be kept available.
+name: Digital Ocean App Creation
+
+on:
+    workflow_dispatch:
+
+jobs:
+    # build:
+    #     name: Build Docker Image
+    #     runs-on: ubuntu-20.04
+    #     steps:
+    #         -
+    #             name: Build the Docker image
+    #             uses: actions/checkout@v2
+    #             run: docker build . --file Dockerfile --tag emsbackend:${{ github.sha }}
+
+    create-app:
+        name: Create Digital Ocean App
+        needs: build
+        runs-on: ubuntu-20.04
+        steps:
+            -
+                name: Checkout files
+                uses: actions/checkout@v2
+            -
+                name: Get tag name
+                uses: olegtarasov/get-tag@v2
+            -
+                name: Install doctl
+                uses: digitalocean/action-doctl@v2
+                with:
+                    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+            -
+                name: Create Digital Ocean App
+                run: doctl apps create --spec do-app-spec.yml

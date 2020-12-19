@@ -3,6 +3,7 @@ name: fyyur
 region: nyc
 services:
     -
+        name: fyyur
         envs:
             -
                 key: FLASK_APP
@@ -14,6 +15,11 @@ services:
                 scope: RUN_AND_BUILD_TIME
                 value: production
                 type: GENERAL
+            -
+                key: DATABASE_URI
+                scope: RUN_AND_BUILD_TIME
+                value: ${ secrets.DATABASE_URI }
+                type: GENERAL
         github:
             branch: staging
             repo: cynepton/fyyur
@@ -22,7 +28,6 @@ services:
         http_port: 5000
         instance_count: 1
         instance_size_slug: basic-xxs
-        name: fyyur
         routes:
             -
                 path: /
