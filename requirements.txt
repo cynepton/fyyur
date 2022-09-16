@@ -21,7 +21,7 @@ ipaddr==2.2.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
 lockfile==0.12.2
-Mako==1.1.3
+Mako==1.2.2
 MarkupSafe==1.1.1
 msgpack==0.6.2
 packaging==20.3
